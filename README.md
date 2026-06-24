@@ -16,7 +16,7 @@ The template will build and deploy a service that has Codex installed along with
 The next step is installing the [Railway CLI](https://github.com/railwayapp/cli). In a terminal, run the following command to install the CLI with agent support configured in one step (macOS, Linux, Windows via WSL):
 
 ```bash
-bash <(curl -fsSL railway.com/install.sh) --agents -y
+curl -fsSL agents.railway.com | sh
 ```
 
 Once that's done, you need log into your Railway account. You can do so by running the following command:
