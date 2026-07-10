@@ -1,6 +1,6 @@
-# Codex Anywhere
+# ChatGPT Codex Anywhere
 
-Run OpenAI Codex on a persistent Railway server and connect to it securely over SSH. Deploy once, then use the Codex desktop app and ChatGPT mobile app to stay attached to the same remote environment.
+Run ChatGPT Codex on a persistent Railway server and connect to it securely over SSH. Deploy once, then use the Codex desktop app and ChatGPT mobile app to stay attached to the same remote environment.
 
 
 ## 1. Deploy the Railway template
