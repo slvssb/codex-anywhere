@@ -11,7 +11,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Base system packages plus external repos for Node.js and GitHub CLI.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git curl wget vim nano jq tmux zip unzip \
+    tini bubblewrap git curl wget vim nano jq tmux zip unzip \
     ripgrep fd-find tree less sudo procps lsof \
     ca-certificates gnupg python3 python3-pip python3-venv \
     build-essential \
@@ -54,4 +54,4 @@ RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
     CMD grep -qs " /data " /proc/mounts || exit 1
 
-ENTRYPOINT ["/usr/local/bin/codex-anywhere-entrypoint"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/codex-anywhere-entrypoint"]
