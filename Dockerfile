@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tini bubblewrap git curl wget vim nano jq tmux zip unzip \
     ripgrep fd-find tree less sudo procps lsof \
     ca-certificates gnupg python3 python3-pip python3-venv \
-    build-essential \
+    build-essential libicu74 \
     && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
        | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
