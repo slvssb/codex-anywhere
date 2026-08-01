@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CODEX_BIN=/usr/local/bin/codex-real
+CODEX_BIN=/usr/bin/codex
 
 if [ "$(id -u)" -eq 0 ]; then
     exec runuser -u user --preserve-environment -- \

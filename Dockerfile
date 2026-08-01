@@ -44,10 +44,8 @@ ENV NPM_CONFIG_PREFIX=/home/user/.local
 ENV PATH="/home/user/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 COPY entrypoint.sh /usr/local/bin/codex-anywhere-entrypoint
-COPY codex-wrapper.sh /usr/local/bin/codex-user-wrapper
-RUN mv /usr/local/bin/codex /usr/local/bin/codex-real \
-    && mv /usr/local/bin/codex-user-wrapper /usr/local/bin/codex \
-    && chmod +x /usr/local/bin/codex-anywhere-entrypoint /usr/local/bin/codex
+COPY codex-wrapper.sh /usr/local/bin/codex
+RUN chmod +x /usr/local/bin/codex-anywhere-entrypoint /usr/local/bin/codex
 
 USER user
 WORKDIR /tmp
