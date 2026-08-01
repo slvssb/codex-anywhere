@@ -112,5 +112,12 @@ if [ -d /opt/default-codex ]; then
     fi
 fi
 
+RUNNER_DIR=/data/home/user/actions-runner
+
+if [ -x "$RUNNER_DIR/run.sh" ]; then
+    cd "$RUNNER_DIR"
+    exec ./run.sh
+fi
+
 cd "$DATA_DIR"
 exec sleep infinity
