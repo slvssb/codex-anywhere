@@ -7,6 +7,8 @@ ROOT_HOME=/root
 PERSIST_USER_HOME=$DATA_DIR/home/user
 PERSIST_ROOT_HOME=$DATA_DIR/root
 CODEX_HOME_DIR=${CODEX_HOME:-$DATA_DIR/.codex}
+RUNNER_USER=$(id -un)
+RUNNER_GROUP=$(id -gn)
 LEGACY_HOME_DIRS=(.config .railway .ssh)
 ROOT_SHARED_DIRS=(.codex .config .railway .ssh)
 
@@ -61,6 +63,20 @@ migrate_legacy_home_dir() {
     fi
 }
 
+secure_codex_home() {
+    local sensitive_file
+
+    sudo chown -R "$RUNNER_USER:$RUNNER_GROUP" "$CODEX_HOME_DIR"
+    sudo chmod 700 "$CODEX_HOME_DIR"
+
+    for sensitive_file in "$CODEX_HOME_DIR/config.toml" "$CODEX_HOME_DIR/auth.json"; do
+        if sudo test -f "$sensitive_file"; then
+            sudo chown "$RUNNER_USER:$RUNNER_GROUP" "$sensitive_file"
+            sudo chmod 600 "$sensitive_file"
+        fi
+    done
+}
+
 sudo mkdir -p "$DATA_DIR"
 if ! grep -qs " $DATA_DIR " /proc/mounts; then
     echo "ERROR: /data is not a mounted volume. Attach a persistent volume at /data before starting Codex Anywhere." >&2
@@ -111,6 +127,8 @@ if [ -d /opt/default-codex ]; then
         cp -a /opt/default-codex/skills "$CODEX_HOME_DIR/skills"
     fi
 fi
+
+secure_codex_home
 
 RUNNER_DIR=/data/home/user/actions-runner
 
